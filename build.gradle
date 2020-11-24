@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile (group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1') {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+}

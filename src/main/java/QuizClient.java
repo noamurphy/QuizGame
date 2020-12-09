@@ -3,30 +3,46 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * A client to access a quiz server and play a quiz game.
+ */
 public class QuizClient {
     static final String DELIMITER = "~";
-    public static void main(String[] args) throws IOException {
+    private String address;
+    private int port;
+    private Scanner socketScan, consoleScan;
+    private PrintWriter out;
 
-        Scanner consoleScan = new Scanner(System.in);
-        System.out.println("Enter address: ");
-        String address = consoleScan.next();
-        consoleScan.nextLine();
-        System.out.println("Enter port: ");
-        int port = consoleScan.nextInt();
-        consoleScan.nextLine();
+    /**
+     * QuizClient constructor
+     * @param address The address of the quiz server.
+     * @param port The port of the quiz server.
+     * @param consoleScan a user input scanner.
+     * @throws IOException
+     */
+    public QuizClient(String address, int port, Scanner consoleScan) throws IOException {
 
+        this.address = address;
+        this.port = port;
+        this.consoleScan = consoleScan;
+        //Construct socket
         Socket s = new Socket(address, port);
-        PrintWriter out = new PrintWriter(s.getOutputStream());
-        Scanner socketScan = new Scanner(s.getInputStream());
-        socketScan.useDelimiter("~");
+        out = new PrintWriter(s.getOutputStream());
+        socketScan = new Scanner(s.getInputStream());
+        socketScan.useDelimiter(DELIMITER);
+    }
 
-        String code = "";
-        String msg = "";
+    /**
+     * Communicates with the quiz server to play quiz game
+     */
+    public void quiz(){
+        String code = ""; //code from server
+        String msg = "";  //response to server
         while (!(code.equals("PLAYAGAIN") && !(msg.toUpperCase().equals("Y")))){
             //Receive code from the server
             code = socketScan.next();
-            //Handle code cases
-            switch (code){
+            //Handle code cases and return user input (msg) to server
+            switch (code) {
                 case "MSG":
                     System.out.println(socketScan.next());
                     break;
@@ -49,3 +65,4 @@ public class QuizClient {
         }
     }
 }
+

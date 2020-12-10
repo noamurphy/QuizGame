@@ -73,10 +73,10 @@ public class LeaderBoard implements Modifiable{
      @return a text version of the top 3 streaks
      **/
     public String prettyPrintTop3(){
-
-        String top3 = "The top three user streaks are:\n" + "\n1: " + rankings.get(0).getName() + "  " + streaks.get(rankings.get(0).getName())
-                + "\n2: " + rankings.get(1).getName() + "  " + streaks.get(rankings.get(1).getName())
-                + "\n3: " + rankings.get(2).getName() + "  " + streaks.get(rankings.get(2).getName());
+        String top3 = "The top three user streaks are:\n";
+        for(int i = 0; i < rankings.size() && i < 3; i++){
+            top3 += "\n" + (i + 1) + ": " + rankings.get(i).getName() + "  " + streaks.get(rankings.get(i).getName());
+        }
         return top3;
     }
 
@@ -85,6 +85,11 @@ public class LeaderBoard implements Modifiable{
      */
     private class User implements Comparable<User>{
         String name;
+
+        /**
+         * User constructor
+         * @param name user name
+         */
         User(String name){
             this.name = name;
         }

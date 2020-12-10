@@ -48,8 +48,7 @@ public class LeaderBoardTests {
         leaderBoard.update("__Jazz__", 4);
         leaderBoard.update("kwiver", 3);
         assertEquals("The top three user streaks are:\n" + "\n1: " + "__Jazz__" + "  " + 4
-                + "\n2: " + "kwiver" + "  " + 3
-                + "\n3: " + "  ", leaderBoard.prettyPrintTop3());
+                + "\n2: " + "kwiver" + "  " + 3, leaderBoard.prettyPrintTop3());
     }
 
     //Thread-safe unit-tests
